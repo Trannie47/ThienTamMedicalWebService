@@ -45,4 +45,18 @@ export class AuthController {
     await this.authService.changeFirstPassword(userId, changePassDto);
     return { success: true, message: 'Đổi mật khẩu thành công.' };
   }
+
+  @Get('nhanvien/:id')
+  @UseGuards(AuthGuard('jwt'))
+  async getNhanVienByID(
+    @Param('id') id: string,
+    @Req() req: ExpressRequest & { user: User },
+  ): Promise<{ success: boolean; data: any }> {
+    const user = await this.authService.getNhanVienByID(id);
+
+    return {
+      success: true,
+      data: user,
+    };
+  }
 }
