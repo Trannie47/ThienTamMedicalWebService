@@ -1,0 +1,95 @@
+doctype html
+html
+  head
+    title Chào mừng đến với Kho Thuốc
+    style.
+      /* Thiết lập cơ bản */
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333333;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      /* Container chính */
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        border-top: 5px solid #007bff; /* Màu sắc thương hiệu */
+      }
+      /* Tiêu đề */
+      .header {
+        text-align: center;
+        padding-bottom: 20px;
+      }
+      .header h1 {
+        color: #007bff;
+        margin: 0;
+      }
+      /* Nội dung */
+      .content {
+        padding: 20px 0;
+      }
+      /* Thông tin đăng nhập */
+      .credentials {
+        background-color: #e9ecef;
+        padding: 15px;
+        border-radius: 4px;
+        margin: 20px 0;
+        text-align: center;
+      }
+      .credentials p {
+        margin: 5px 0;
+        font-size: 1.1em;
+      }
+      .credentials strong {
+        color: #dc3545; /* Màu đỏ cho mật khẩu tạm thời */
+        font-size: 1.2em;
+      }
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding-top: 20px;
+        font-size: 0.9em;
+        color: #6c757d;
+        border-top: 1px solid #eeeeee;
+      }
+  body
+    .container
+      .header
+        h1 Chào mừng đến với Hệ thống Kho Thuốc!
+      .content
+        p Xin chào 
+          strong #{username}
+          | !
+        p Cảm ơn bạn đã tham gia vào hệ thống quản lý Kho Thuốc của chúng tôi. Dưới đây là thông tin đăng nhập tạm thời của bạn:
+        
+        .credentials
+          p 
+            strong Tên đăng nhập (Mã NV):
+            |  #{maNV} 
+          
+          p 
+            strong Mật khẩu tạm thời:
+            strong #{password} 
+        
+        p Vui lòng sử dụng thông tin trên để đăng nhập lần đầu tiên.
+        p 
+          strong Lưu ý quan trọng:
+          | Để đảm bảo an toàn cho tài khoản, hệ thống sẽ yêu cầu bạn 
+          strong thay đổi mật khẩu này ngay sau khi đăng nhập thành công.
+          | 
+        
+        p Chúc bạn có trải nghiệm làm việc tốt với hệ thống.
+        
+        
+        a(href="[Đường dẫn tới trang đăng nhập của bạn]" style="display: inline-block; padding: 10px 20px; margin: 15px 0; font-size: 16px; color: #ffffff; background-color: #28a745; text-decoration: none; border-radius: 5px;") Đăng nhập ngay
+        
+      .footer
+        p Đây là email tự động, vui lòng không trả lời.
+        p &copy; [Năm hiện tại] [Tên công ty/dự án của bạn].
