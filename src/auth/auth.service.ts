@@ -82,4 +82,14 @@ export class AuthService {
       mustChangePassword: false,
     });
   }
+  
+  async getNhanVienByID(id: string): Promise<User> {
+    const user = await this.usersService.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('Không tìm thấy nhân viên');
+    }
+
+    return user;
+  }
 }
