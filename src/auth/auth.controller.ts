@@ -54,7 +54,6 @@ export class AuthController {
     @Req() req: ExpressRequest & { user: User },
   ): Promise<{ success: boolean; data: any }> {
     const user = await this.authService.getNhanVienByID(id);
-
     return {
       success: true,
       data: user,
