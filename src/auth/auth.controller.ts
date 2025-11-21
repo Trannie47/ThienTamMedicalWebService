@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Body, Controller, Post, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Req,Get,Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { MustChangePasswordGuard } from './guards/must-change-password.guard';
 import { AuthService } from './auth.service';
 import { Request as ExpressRequest } from 'express';
 import { NhanVienEntity } from 'src/users/entities/nhanvien.entity';
+import { User } from '../users/interfaces/user.interface';
 
 export class LoginDto {
   maNV: string;
