@@ -7,6 +7,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '../auth.service';
 import { NhanVienEntity } from 'src/users/entities/nhanvien.entity';
 
+//sinh ra khoas token
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
   constructor(private authService: AuthService) {
