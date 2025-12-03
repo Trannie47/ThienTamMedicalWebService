@@ -37,7 +37,7 @@ export class AuthService {
 
     const isMatch = await bcrypt.compare(matKhau, user.matKhau);
     if (!isMatch) return null;
-    delete user.matKhau;
+    // delete user.matKhau;
     return user;
   }
 
@@ -80,6 +80,32 @@ export class AuthService {
     await this.usersService.update(userId, {
       matKhau: hashedPassword,
       mustChangePassword: false,
+    });
+  }
+
+  async changePassword(
+    userId: string,
+    changePassDto: ChangePasswordDto,
+  ): Promise<void> {
+    // Lấy user (không trả về mật khẩu theo findById an toàn, nếu cần mật khẩu hash phải fetch riêng)
+    const user = await this.usersService.findById(userId);
+    if (!user) throw new NotFoundException('User không tồn tại');
+    // Kiểm tra mật khẩu cũ
+    const isMatch = await bcrypt.compare(
+      changePassDto.oldPassword ?? '',
+      user.matKhau ?? '',
+    );
+    if (!isMatch) throw new BadRequestException('Mật khẩu cũ không đúng');
+
+    // Hash mật khẩu mới
+    const hashedPassword = await bcrypt.hash(
+      changePassDto.newPassword,
+      SALT_ROUNDS,
+    );
+
+    // Cập nhật mật khẩu mới
+    await this.usersService.update(userId, {
+      matKhau: hashedPassword,
     });
   }
 

@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Body, Controller, Post, UseGuards, Req, Get,Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  Req,
+  Get,
+  Param,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { MustChangePasswordGuard } from './guards/must-change-password.guard';
 import { AuthService } from './auth.service';
@@ -13,7 +21,7 @@ export class LoginDto {
 }
 
 export class ChangePasswordDto {
-  oldPassword: string;
+  oldPassword?: string;
   newPassword: string;
 }
 
@@ -36,14 +44,25 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
-  @Post('change-password')
+  @Post('change-password-first')
   @UseGuards(AuthGuard('jwt'), MustChangePasswordGuard)
-  async changePassword(
+  async changePasswordFirst(
     @Body() changePassDto: ChangePasswordDto,
     @Req() req: ExpressRequest & { user: JwtUser },
   ): Promise<{ success: boolean; message: string }> {
     const userId = req.user.id;
     await this.authService.changeFirstPassword(userId, changePassDto);
+    return { success: true, message: 'Đổi mật khẩu thành công.' };
+  }
+
+  @Post('change-password')
+  @UseGuards(AuthGuard('jwt'))
+  async changePassword(
+    @Body() changePassDto: ChangePasswordDto,
+    @Req() req: ExpressRequest & { user: JwtUser },
+  ): Promise<{ success: boolean; message: string }> {
+    const userId = req.user.id;
+    await this.authService.changePassword(userId, changePassDto);
     return { success: true, message: 'Đổi mật khẩu thành công.' };
   }
 
@@ -54,10 +73,10 @@ export class AuthController {
     @Req() req: ExpressRequest & { user: User },
   ): Promise<{ success: boolean; data: any }> {
     const user = await this.authService.getNhanVienByID(id);
+    delete user.matKhau;
     return {
       success: true,
       data: user,
     };
   }
-
 }
